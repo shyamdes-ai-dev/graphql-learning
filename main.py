@@ -1,12 +1,11 @@
 from graphene import Schema, String, ObjectType, Int, Field, List
 
+
 class UserType(ObjectType):
     id = Int()
     name = String()
     age = Int()
 
-
- 
 
 class Query(ObjectType):
     user = Field(UserType, user_id=Int())
@@ -15,7 +14,7 @@ class Query(ObjectType):
     users_db = [
         {"id": 1, "name": "Shyam", "age": 20},
         {"id": 2, "name": "John", "age": 25},
-        {"id": 3, "name": "Doe", "age": 30}
+        {"id": 3, "name": "Doe", "age": 30},
     ]
 
     def resolve_user(self, info, user_id):
@@ -25,9 +24,10 @@ class Query(ObjectType):
             return None
 
         return matched_users[0]
-    
+
     def resolve_users(self, info):
         return Query.users_db
+
 
 schema = Schema(query=Query)
 gql = """
